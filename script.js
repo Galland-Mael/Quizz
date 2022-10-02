@@ -1,65 +1,11 @@
-const answer = document.querySelector('.answer');
+const answer1 = document.querySelector('.first');
 const centerDiv = document.querySelector('.center')
-
+const answer2 = document.querySelector('.second');
+const answer3 = document.querySelector('.third');
+const currentQuesion = document.querySelector('.question');
+const answer4 = document.querySelector('.fourth');
+const answer = document.querySelector('.answer');
 const btnStart = document.querySelector('.start')
-let choice = 0;
-let countQuestion = 0;
-let shuffle = shuffleQuestion(question);
-btnStart.addEventListener('click', () => {
-    btnStart.classList.add('hide')
-    centerDiv.classList.remove('center');
-    answer1.classList.remove('hide');
-    answer2.classList.remove('hide');
-    answer3.classList.remove('hide');
-    answer4.classList.remove('hide');
-    setQuestion();
-})
-
-function setQuestion() {
-    answer1.innerText = selectFirstAnswer(question);
-    answer2.innerText = selectSecondAnswer(question);
-    answer3.innerText = selectThirdAnswer(question);
-    answer4.innerText = selectFourthAnswer(question);
-}
-
-answer1.addEventListener('click', () => {
-    choice = 1;
-    answer1.innerText = selectFirstAnswer(question);
-    selectFirstAnswer(question);
-    answer2.classList.add("wrong");
-    answer3.classList.add("wrong");
-    answer4.classList.add("wrong");
-})
-function selectQuestion (shuffleJson){
-
-}
-function selectFirstAnswer(shuffleJson) {
-    return shuffleJson[countQuestion].firstAnswer;
-}
-
-function selectSecondAnswer(shuffleJson) {
-    return shuffleJson[countQuestion].secondAnswer;
-}
-
-function selectThirdAnswer(shuffleJson) {
-    return shuffleJson[countQuestion].thirdAnswer;
-}
-
-function selectFourthAnswer(shuffleJson) {
-    return shuffleJson[countQuestion].fourthAnswer;
-}
-
-function reload() {
-    choice = 0;
-    setTimeout(() => {
-        answer1.classList.remove("wrong", "true");
-        answer2.classList.remove("wrong", "true");
-        answer3.classList.remove("wrong", "true");
-        answer4.classList.remove("wrong", "true");
-    }, 1500);
-}
-
-
 const question = [
     {
         question: 'Quelle est la capitale de la Pologne?',
@@ -94,3 +40,60 @@ const question = [
         goodAnswer: 2
     }
 ]
+let choice = 0;
+let countQuestion = 0;
+btnStart.addEventListener('click', () => {
+    btnStart.classList.add('hide')
+    centerDiv.classList.remove('center');
+    answer1.classList.remove('hide');
+    answer2.classList.remove('hide');
+    answer3.classList.remove('hide');
+    answer4.classList.remove('hide');
+   setQuestion();
+})
+
+
+let shuffle=shuffleQuestion();
+function setQuestion() {
+    currentQuesion.innerText = selectQuestion(shuffle);
+    answer1.innerText = selectFirstAnswer(shuffle);
+    answer2.innerText = selectSecondAnswer(shuffle);
+    answer3.innerText = selectThirdAnswer(shuffle);
+    answer4.innerText = selectFourthAnswer(shuffle);
+    countQuestion++;
+}
+
+function selectQuestion (shuffleJson){
+    return shuffleJson[countQuestion].question;
+}
+function selectFirstAnswer(shuffleJson) {
+    return shuffleJson[countQuestion].firstAnswer;
+}
+
+function selectSecondAnswer(shuffleJson) {
+    return shuffleJson[countQuestion].secondAnswer;
+}
+
+function selectThirdAnswer(shuffleJson) {
+    return shuffleJson[countQuestion].thirdAnswer;
+}
+
+function selectFourthAnswer(shuffleJson) {
+    return shuffleJson[countQuestion].fourthAnswer;
+}
+
+function reload() {
+    choice = 0;
+    setTimeout(() => {
+        answer1.classList.remove("wrong", "true");
+        answer2.classList.remove("wrong", "true");
+        answer3.classList.remove("wrong", "true");
+        answer4.classList.remove("wrong", "true");
+    }, 1500);
+}
+
+
+function shuffleQuestion() {
+    let shuffleJson = question.sort((a, b) => 0.4 - Math.random());
+    return shuffleJson
+}
